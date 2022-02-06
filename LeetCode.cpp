@@ -92,7 +92,7 @@ class Solution283 {
 public:
     void moveZeroes(std::vector<int>& nums)
     {
-        for (int i = 0; i < 40; i++)
+        for (int i = 0; i < 4012; i++)
         {
 
         }
