@@ -1,5 +1,5 @@
-#include <string>
 #include <iostream>
+#include <string>
 #include <vector>
 #include <unordered_set>
 
@@ -92,18 +92,176 @@ class Solution283 {
 public:
     void moveZeroes(std::vector<int>& nums)
     {
-        for (int i = 0; i < 40; i++)
+        for (int i = 0, j = 0; i < nums.size(); i++)
         {
-
+            if (nums[i] != 0)
+            {
+                std::swap(nums[j], nums[i]);
+                j++;
+                
+            }
         }
     }
 };
-//283
+//283 
+// Четные слева а нечетные справа
+class Solution283_chet {
+public:
+    void moveZeroes(std::vector<int>& nums)
+    {
+        for (int i = 0, j = 0; i < nums.size(); i++)
+        {
+            if (nums[i] & 0) // Если двочиное представление числа заканчивается на  1, оно не четное, на 0, четное
+            {
+                std::swap(nums[j], nums[i]);
+                j++;
+
+            }
+        }
+    }
+};
+
+//108. Convert Sorted Array to Binary Search Tree
+class Solution108 {
+public:
+struct TreeNode {
+    int val;
+    TreeNode *left;
+    TreeNode *right;
+    TreeNode() : val(0), left(nullptr), right(nullptr) {}
+    TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+    TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+};
+
+    TreeNode* sortedArrayToBST(std::vector<int>& nums, int left, int right)
+    {
+        if (left > right)
+        {
+            return nullptr;
+        }
+        int current_index = (left + right) / 2;
+        TreeNode* current_item = new TreeNode(nums[current_index]);
+        current_item->left = sortedArrayToBST(nums, left, current_index - 1);
+        current_item->right = sortedArrayToBST(nums, current_index + 1, right);
+        return current_item;
+    }
 
 
+    TreeNode* sortedArrayToBST(std::vector<int>& nums)
+    {
+        if (nums.empty())
+        {
+            return nullptr;
+        }
+        return sortedArrayToBST(nums, 0, nums.size() - 1);
+    }
+};
+
+//108. Convert Sorted Array to Binary Search Tree
+
+//94. Binary Tree Inorder Traversal
+
+struct TreeNode {
+    int val;
+    TreeNode *left;
+    TreeNode *right;
+    TreeNode() : val(0), left(nullptr), right(nullptr) {}
+    TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+    TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+};
+
+class Solution94 {
+public:
+    
+    std::vector<int> buffer;
+
+    void inorderTraversalBuff(TreeNode* root)
+    {
+        if (root == nullptr)
+        {
+            return;
+        }
+        inorderTraversal(root->left);
+        buffer.push_back(root->val);
+        inorderTraversal(root->right);
+    }
+
+    std::vector<int> inorderTraversal(TreeNode* root) 
+    {
+        inorderTraversalBuff(root);
+        return buffer;
+    }
+};
+
+//94. Binary Tree Inorder Traversal
+
+//9. Palindrome Number
+
+class Solution9 {
+public:
+    bool isPalindrome(int x) {
+        if (x < 0) return false;
+        long long y = 0, t = x;
+        while (t != 0) {
+            y = y * 10 + t % 10;
+            t /= 10;
+        }
+        return x == y;
+    }
+};
 int main()
 {
-    std::cout << getSum(1, 2) << std::endl;
-    system("pause");
+
+    Solution9 kek;
+    int x = 0;
+    std::cin >> x;
+    kek.isPalindrome(x);
+    system("PAUSE");
 }
 
+//9. Palindrome Number
+
+
+/*int main()
+{
+    Solution283_chet chok;
+    std::vector<int> vec = { 1,2,3,4,5,6 };
+    chok.moveZeroes(vec);
+    system("pause");
+
+}*/
+
+//int main()
+//{
+//    // Поддержка кириллицы в консоли Windows
+//    setlocale(LC_ALL, "");
+//
+//    // Создание вектора из строк
+//    std::vector<std::string> students;
+//
+//    // Буфер для ввода фамилии студента
+//    std::string buffer = "";
+//
+//    std::cout << "Вводите фамилии студентов. "
+//        << "По окончание ввода введите пустую строку" << std::endl;
+//
+//    do {
+//        std::getline(std::cin, buffer);
+//        if (buffer.size() > 0) {
+//            // Добавление элемента в конец вектора
+//            students.push_back(buffer);
+//        }
+//    } while (buffer != "");
+//
+//
+//    // Сохраняем количество элементов вектора 
+//    unsigned int vector_size = students.size();
+//
+//    // Вывод заполненного вектора на экран
+//    std::cout << "Ваш вектор." << std::endl;
+//    for (int i = 0; i < vector_size; i++) {
+//        std::cout << students[i] << std::endl;
+//    }
+//
+//    return 0;
+//}
